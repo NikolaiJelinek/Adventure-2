@@ -44,7 +44,11 @@ public class UserInterface {
         Room currentRoom = adventure.getCurrentRoom();
         System.out.println("You enter " + currentRoom.getName() + ", " + currentRoom.getDescription());
         for (Item item : currentRoom.getItems()) {
-            System.out.println(item.getLongName());
+            System.out.print(item.getLongName() + " ");
+        }
+        for (Enemy enemy : currentRoom.getEnemies()) {
+
+            System.out.println(enemy.getLongName());
         }
     }
     public void startProgram() {
@@ -110,22 +114,35 @@ public class UserInterface {
 
                 }
                 case "attack" -> {//adventure.attack();
-                switch (adventure.attack()){
-                    case ATTACKED -> {
-                        Weapon weapon = adventure.getEquipped();
-                        System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getLongName() + " at the empty air. " + weapon.getUsesLeftText());
-                    }
-                    case NO_WEAPON ->
-                            System.out.println("You don't have a weapon equipped.");
+                    AttackOutcome result = adventure.attack();
+                    handleAttackResult(result);
 
-                    case OUT_OF_AMMO ->
-                            System.out.println("Your weapon is out of ammunition.");
                 }
+//                switch (adventure.attack()){
+//                    case ATTACKED -> {
+//                        Weapon weapon = adventure.getEquipped();
+//                        System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getLongName() + " at the empty air. " + weapon.getUsesLeftText());
+//                    }
+//                    case NO_WEAPON ->
+//                            System.out.println("You don't have a weapon equipped.");
+//
+//                    case OUT_OF_AMMO ->
+//                            System.out.println("Your weapon is out of ammunition.");
+//                }
                 }
 
-            }
+
+
             //String input = userInput.nextLine();
            // String input =  userInput;
+            if(input.startsWith("attack ")){
+                String enemyName = input.substring(7);
+               // AttackResult enemyTargeted = adventure.attack(enemyName);
+                AttackOutcome result = adventure.attack(enemyName);
+                handleAttackResult(result);
+            }
+
+
             if (input.startsWith("take ")) {
                 String itemName = input.substring(5);
                 Item pickedUpItem = adventure.takeItem(itemName);
@@ -184,5 +201,27 @@ public class UserInterface {
 
 
     }
+    public void handleAttackResult(AttackOutcome outcome) {
 
+        switch (outcome.getResult()) {
+
+            case ATTACKED -> {
+                Weapon weapon = adventure.getEquipped();
+
+                System.out.println(   "You " + weapon.getAttackVerb() + " " + weapon.getLongName() + ". " + weapon.getUsesLeftText()    );
+                //System.out.println(adventure.);
+                System.out.println("The " + outcome.getEnemyName() + " took " + outcome.getDamage() + " damage.");
+                System.out.println("The " + outcome.getEnemyName() + " now has " + outcome.getEnemyHealth() + " health.");
+                }
+
+            case NO_WEAPON ->
+                    System.out.println("You don't have a weapon equipped.");
+
+            case OUT_OF_AMMO ->
+                    System.out.println("Your weapon is out of ammunition.");
+
+            case NO_ENEMY -> System.out.println("Enemy not found");
+        }
+
+    }
 }

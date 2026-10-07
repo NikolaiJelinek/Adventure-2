@@ -41,8 +41,6 @@ public class Map {
         room9.setWest(room8);
 
         Item lamp = new Item("lamp", "a shiny brass lamp");
-        Weapon sword = new MeleeWeapon("sword", "an old rusty sword", 20);
-        Weapon bow = new RangedWeapon("bow", "a small archers bow", 15, 5);
         Item key = new Item("key", "a small rusty key");
         Item coin = new Item("coin", "an old gold coin");
         Item helmet = new Item("helmet", "a dented iron helmet");
@@ -50,10 +48,17 @@ public class Map {
         Item potion = new Item("potion", "a murky red potion");
         Item bone = new Item("bone", "a cracked human bone");
         Item gem = new Item("gem", "a strange green gemstone");
+        //Weapons
+        Weapon sword = new MeleeWeapon("sword", "an old rusty sword", 20);
+        Weapon bow = new RangedWeapon("bow", "a small archers bow", 15, 5);
+        // Food
         Food steak = new Food("steak", "a delicious steak", 60);
         Food apple = new Food("apple", "a red apple", 20);
         Food potato = new Food("potato", "a poisonus looking potato", -30);
-
+        // enemies
+        Enemy troll = new Enemy("troll", "an aggressive looking troll", 50);
+        Enemy skeleton = new Enemy("skeleton", "a frail looking skeleton", 30);
+        Enemy zombie = new Enemy("zombie", "a HUGE looking zombie", 100);
 
         room1.addItem(lamp);
         room1.addItem(sword);
@@ -64,6 +69,9 @@ public class Map {
         room2.addItem(potato);
         room2.addItem(bone);
 
+        room1.addEnemy(troll);
+        room1.addEnemy(skeleton);
+        room1.addEnemy(zombie);
 
         startingRoom = room1;
     }

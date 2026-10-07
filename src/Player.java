@@ -93,16 +93,45 @@ public class Player {
     public Weapon getEquipped(){
         return equipped;
     }
-    public AttackResult attack() {
-        if (equipped == null) {
-
-            return AttackResult.NO_WEAPON;
+    // attack method without target
+    public AttackOutcome attack(){
+        Enemy enemy = null;
+        if(!currentRoom.getEnemies().isEmpty()){
+            enemy = currentRoom.getEnemies().get(0);
+            System.out.println(enemy.getShortName()); }
+            if (equipped == null) {
+            return new AttackOutcome(AttackResult.NO_WEAPON, null, 0, 0);
         }
         if (equipped.canUse()) {
             equipped.use();
-            return AttackResult.ATTACKED;
+
+            int damage = equipped.getDamage();
+           enemy.takeDamage(damage);
+            return new AttackOutcome(AttackResult.ATTACKED, enemy.getShortName(), damage, enemy.getHealth());}
+        else {
+            return new AttackOutcome(AttackResult.OUT_OF_AMMO, null, 0, 0);
+        }
+    }
+    // attack method with target
+    public AttackOutcome attack(String enemyName) {
+        Enemy enemy = currentRoom.findEnemy(enemyName);
+        if (enemy == null){
+            return new AttackOutcome(AttackResult.NO_ENEMY, null, 0, 0);
+        }
+
+        if (equipped == null) {
+
+            return new AttackOutcome(AttackResult.NO_WEAPON, null, 0, 0);
+        }
+        if (equipped.canUse()) {
+            equipped.use();
+            int damage = equipped.getDamage();
+            enemy.takeDamage(damage);
+            //if(enemy.isDead()){}
+            return new AttackOutcome(AttackResult.ATTACKED, enemy.getShortName(), damage, enemy.getHealth());
         } else {
-            return AttackResult.OUT_OF_AMMO;
+
+            return new AttackOutcome(AttackResult.OUT_OF_AMMO, null, 0, 0);
         }
     }
 

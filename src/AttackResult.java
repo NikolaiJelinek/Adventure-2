@@ -1,5 +1,6 @@
 public enum AttackResult {
     ATTACKED,
     NO_WEAPON,
-    OUT_OF_AMMO
+    OUT_OF_AMMO,
+    NO_ENEMY
 }

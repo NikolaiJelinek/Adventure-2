@@ -21,11 +21,14 @@ public class Adventure {
     public EquipResult equip(String shortName) {
         return player.equip(shortName);
     }
-    public AttackResult attack(){
+    public AttackOutcome attack() {
         return player.attack();
+    }
+    public AttackOutcome attack(String enemyName){
+        return player.attack(enemyName);
 
     }
-
+    //public Enemy attack() {return player.attack()}
     public Weapon getEquipped() {return player.getEquipped();}
     public void startGame(){
     Map map = new Map();

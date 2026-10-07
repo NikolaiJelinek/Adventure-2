@@ -5,10 +5,9 @@ public class Room {
     String description;
 
     ArrayList<Item> items = new ArrayList<>();
-    ArrayList<Item> getItems(){
-        return items;
-    }
-
+    ArrayList<Item> getItems(){return items;}
+    ArrayList<Enemy> enemies = new ArrayList<>();
+    ArrayList<Enemy> getEnemies(){ return enemies;}
 
     Room north;
     Room east;
@@ -21,9 +20,7 @@ public class Room {
     }
     public void addItem(Item item){items.add(item);}
 
-    public void removeItem(Item item){
-        items.remove(item);
-    }
+    public void removeItem(Item item){items.remove(item);}
 
     public Item findItem(String shortName) {
         for (Item item : items) {
@@ -33,7 +30,19 @@ public class Room {
         }
         return null;
     }
+    public Enemy findEnemy(String shortName) {
+        for (Enemy enemy : enemies) {
+            if(enemy.getShortName().equals(shortName)){
 
+                return enemy;
+
+            }
+        }
+        return null;
+    }
+
+    public void addEnemy(Enemy enemy) {enemies.add(enemy);}
+    public void removeEnemy(Enemy enemy) {enemies.remove(enemy);}
 
     public String getName() {return name;}
     public String getDescription() {return description;    }
