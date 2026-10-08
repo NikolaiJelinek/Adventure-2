@@ -213,6 +213,11 @@ public class UserInterface {
                 System.out.println("The " + outcome.getEnemyName() + " took " + outcome.getDamage() + " damage.");
                 System.out.println("The " + outcome.getEnemyName() + " now has " + outcome.getEnemyHealth() + " health.");
                 }
+            case ENEMY_DEAD -> {
+                Weapon weapon = adventure.getEquipped();
+                System.out.println( "You " + weapon.getAttackVerb() + " " + weapon.getLongName() + ". " + weapon.getUsesLeftText());
+                System.out.println("The " + outcome.getEnemyName() + " takes " + outcome.getDamage() + " damage, Killing it!");
+            }
 
             case NO_WEAPON ->
                     System.out.println("You don't have a weapon equipped.");

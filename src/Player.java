@@ -127,7 +127,10 @@ public class Player {
             equipped.use();
             int damage = equipped.getDamage();
             enemy.takeDamage(damage);
-            //if(enemy.isDead()){}
+            if(enemy.isDead()){
+                currentRoom.removeEnemy(enemy);
+                return new AttackOutcome(AttackResult.ENEMY_DEAD, enemy.getShortName(), damage, 0);
+            }
             return new AttackOutcome(AttackResult.ATTACKED, enemy.getShortName(), damage, enemy.getHealth());
         } else {
 
